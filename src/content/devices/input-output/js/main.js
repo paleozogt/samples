@@ -11,6 +11,7 @@
 var videoElement = document.querySelector('video');
 var audioInputSelect = document.querySelector('select#audioSource');
 var audioOutputSelect = document.querySelector('select#audioOutput');
+var audioEchoCancellationCheckbox = document.querySelector('input#audioEchoCancellation');
 var videoSelect = document.querySelector('select#videoSource');
 var selectors = [audioInputSelect, audioOutputSelect, videoSelect];
 
@@ -95,8 +96,12 @@ function start() {
   }
   var audioSource = audioInputSelect.value;
   var videoSource = videoSelect.value;
+  var audioEchoCancellation = audioEchoCancellationCheckbox.checked;
   var constraints = {
-    audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
+    audio: {
+        mandatory: audioEchoCancellation ? undefined : { echoCancellation: audioEchoCancellation },
+        deviceId: audioSource ? {exact: audioSource} : undefined
+    },
     video: {deviceId: videoSource ? {exact: videoSource} : undefined}
   };
   navigator.mediaDevices.getUserMedia(constraints)
@@ -114,4 +119,5 @@ audioInputSelect.onchange = start;
 audioOutputSelect.onchange = changeAudioDestination;
 videoSelect.onchange = start;
 
+adapter.disableLog(false)
 start();
