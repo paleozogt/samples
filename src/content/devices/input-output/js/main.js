@@ -100,6 +100,8 @@ function start() {
   var constraints = {
     audio: {
         echoCancellation: audioUnfiltered ? undefined : { exact: audioUnfiltered },
+        googAutoGainControl: audioUnfiltered ? undefined : audioUnfiltered,
+        googNoiseSuppression: audioUnfiltered ? undefined : audioUnfiltered,
         deviceId: audioSource ? {exact: audioSource} : undefined
     },
     video: {deviceId: videoSource ? {exact: videoSource} : undefined}
