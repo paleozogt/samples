@@ -11,7 +11,7 @@
 var videoElement = document.querySelector('video');
 var audioInputSelect = document.querySelector('select#audioSource');
 var audioOutputSelect = document.querySelector('select#audioOutput');
-var audioEchoCancellationCheckbox = document.querySelector('input#audioEchoCancellation');
+var audioUnfilteredCheckbox = document.querySelector('input#audioUnfiltered');
 var videoSelect = document.querySelector('select#videoSource');
 var selectors = [audioInputSelect, audioOutputSelect, videoSelect];
 
@@ -96,10 +96,10 @@ function start() {
   }
   var audioSource = audioInputSelect.value;
   var videoSource = videoSelect.value;
-  var audioEchoCancellation = audioEchoCancellationCheckbox.checked;
+  var audioUnfiltered = audioUnfilteredCheckbox.checked;
   var constraints = {
     audio: {
-        mandatory: audioEchoCancellation ? undefined : { echoCancellation: audioEchoCancellation },
+        echoCancellation: audioUnfiltered ? undefined : { exact: audioUnfiltered },
         deviceId: audioSource ? {exact: audioSource} : undefined
     },
     video: {deviceId: videoSource ? {exact: videoSource} : undefined}
